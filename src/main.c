@@ -264,6 +264,20 @@ void battery_state_service_handler(BatteryChargeState charge_state)
 void bluetooth_connection_handler(bool connected)
 {
 	layer_set_hidden(bitmap_layer_get_layer(radio_layer), connected != true);
+	
+	// do notification
+	if(!connected) {
+    
+    		uint32_t segments[] = { 200, 100, 200, 100, 1000, 300, 200, 100, 200, 100, 1000, 300, 200, 100, 200, 100, 1000, 300 };
+
+    		VibePattern pat = {
+      			.durations = segments,
+      			.num_segments = ARRAY_LENGTH(segments),
+      		};
+
+    		vibes_enqueue_custom_pattern(pat);
+  	}
+    
 }
 //-----------------------------------------------------------------------------------------------------------------------
 static void update_configuration(void)
